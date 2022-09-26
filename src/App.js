@@ -59,7 +59,7 @@ function App() {
         component={ FavoriteRecipes }
       />
     </Switch>
-  );
+);
 }
 
 export default App;

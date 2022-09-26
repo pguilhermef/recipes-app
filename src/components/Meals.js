@@ -1,12 +1,14 @@
 import React from 'react';
 import Header from './Header';
+import Footer from './Footer';
 
 function Meals() {
-  return (
-    <>
+   return (
+     <div>
       <Header />
-      <div>Meals</div>
-    </>
+      Meals
+     <Footer />
+     </div>
   );
 }
 
