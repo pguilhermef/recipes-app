@@ -5,9 +5,10 @@ import searchIcon from '../images/searchIcon.svg';
 
 function Header() {
   const history = useHistory();
+  const cantRender = [/profile/i, /done-recipes/i, /favorite-recipes/i];
   const { location: { pathname } } = history;
   const urlWithoutBar = pathname.replaceAll('/', '');
-  const titleOfPage = title[0].toUpperCase() + urlWithoutBar.substring(1);
+  const titleOfPage = urlWithoutBar[0].toUpperCase() + urlWithoutBar.substring(1);
 
   return (
     <div>
@@ -19,12 +20,16 @@ function Header() {
           data-testid="profile-top-btn"
         />
       </Link>
-
-      <img
-        alt="searchIcon"
-        src={ searchIcon }
-        data-testid="search-top-btn"
-      />
+      {
+        !urlWithoutBar.includes(cantRender)
+          ? (
+            <img
+              alt="searchIcon"
+              src={ searchIcon }
+              data-testid="search-top-btn"
+            />
+          ) : (<div>teste</div>)
+      }
     </div>
   );
 }
