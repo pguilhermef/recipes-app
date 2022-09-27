@@ -25,7 +25,7 @@ function App() {
 
       <Route
         exact
-        path="/meals/:id"
+        path="/meals"
         component={ Meals }
       />
 
@@ -37,7 +37,7 @@ function App() {
 
       <Route
         exact
-        path="/drinks/:id"
+        path="/drinks"
         component={ Drinks }
       />
 
@@ -59,7 +59,7 @@ function App() {
         component={ FavoriteRecipes }
       />
     </Switch>
-);
+  );
 }
 
 export default App;

@@ -3,12 +3,12 @@ import Header from './Header';
 import Footer from './Footer';
 
 function Meals() {
-   return (
-     <div>
+  return (
+    <div>
       <Header />
       Meals
-     <Footer />
-     </div>
+      <Footer />
+    </div>
   );
 }
 

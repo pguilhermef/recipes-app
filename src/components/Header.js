@@ -5,31 +5,45 @@ import searchIcon from '../images/searchIcon.svg';
 
 function Header() {
   const history = useHistory();
-  const cantRender = [/profile/i, /done-recipes/i, /favorite-recipes/i];
   const { location: { pathname } } = history;
   const urlWithoutBar = pathname.replaceAll('/', '');
-  const titleOfPage = urlWithoutBar[0].toUpperCase() + urlWithoutBar.substring(1);
+  const withoutTrace = urlWithoutBar.replaceAll('-', ' ');
+  const split = withoutTrace.split(' ');
+  const titleOfPage = split
+    .map((word) => word[0].toUpperCase() + word.substring(1)).join(' ');
 
+  if (urlWithoutBar === 'profile'
+  || urlWithoutBar === 'done-recipes'
+  || urlWithoutBar === 'favorite-recipes') {
+    return (
+      <div>
+        <div data-testid="page-title">{titleOfPage}</div>
+        <Link to="/profile">
+          <img
+            alt="profileIcon"
+            src={ profileIcon }
+            data-testid="profile-top-btn"
+          />
+        </Link>
+      </div>
+
+    );
+  }
   return (
     <div>
       <div data-testid="page-title">{titleOfPage}</div>
-      <Link to="/Profile">
+      <Link to="/profile">
         <img
           alt="profileIcon"
           src={ profileIcon }
           data-testid="profile-top-btn"
         />
       </Link>
-      {
-        !urlWithoutBar.includes(cantRender)
-          ? (
-            <img
-              alt="searchIcon"
-              src={ searchIcon }
-              data-testid="search-top-btn"
-            />
-          ) : (<div>teste</div>)
-      }
+      <img
+        alt="searchIcon"
+        src={ searchIcon }
+        data-testid="search-top-btn"
+      />
     </div>
   );
 }

@@ -5,9 +5,9 @@ import Footer from './Footer';
 function Profile() {
   return (
     <div>
-    <Header />
+      <Header />
       Profile
-     <Footer />
+      <Footer />
     </div>
   );
 }

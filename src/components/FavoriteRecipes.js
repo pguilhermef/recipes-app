@@ -1,8 +1,12 @@
 import React from 'react';
+import Header from './Header';
 
 function FavoriteRecipes() {
   return (
-    <div>FavoriteRecipes</div>
+    <>
+      <Header />
+      <div>FavoriteRecipes</div>
+    </>
   );
 }
 
