@@ -1,36 +1,35 @@
 import React from 'react';
-// import { screen } from '@testing-library/react';
-import { render } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helpers/RenderWith';
-import Header from '../components/Header';
+// import Header from '../components/Header';
 import App from '../App';
+// import Meals from '../components/Meals';
 
 describe('Testa o componente Header', () => {
-  test('Testa se o ícone do perfil é rendenizado', () => {
-    render(<Header />);
-  });
-
-  test('Testa se o titulo da pagina é rendenizado de maneira correta', () => {
+  it('Ao clicar na "img" do profile é redirecionado para a página "/profile"', async () => {
     const { history } = renderWithRouter(<App />);
+    history.push('/meals');
 
-    history.push('/drinks');
+    const buttonProfile = screen.getByTestId('profile-top-btn');
 
-    expect(history.location.pathname).toBe('/drinks');
+    expect(buttonProfile).toBeInTheDocument();
+
+    userEvent.click(buttonProfile);
+
+    await waitFor(() => expect(history.location.pathname).toBe('/profile'));
   });
+  it('"VERIFICA SE O BOTAO SEARCH FUNCIONA, passa ai pfv "', () => {
+    const { history } = renderWithRouter(<App />);
+    history.push('/meals');
 
-  test('Testa se o ícone de pesquisa é rendenizado', () => {
+    const buttonSearch = screen.getByTestId('search-top-btn');
 
-  });
+    expect(buttonSearch).toBeInTheDocument();
 
-  test('Testa se o titulo da página é rendenizado', () => {
+    userEvent.click(buttonSearch);
 
-  });
-
-  test('Testa se os ícones podem ser encontrados em "src/images/profileIcon.svg" e em "src/images/searchIcon.svg"', () => {
-
-  });
-
-  test('Testa se cada página tem seu próprio título ao ser rendenizada pelo Header', () => {
-
+    const componentSerachBar = screen.getByTestId('search-input');
+    expect(componentSerachBar).toBeInTheDocument();
   });
 });
