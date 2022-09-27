@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
+import Header from './Header';
 import Footer from './Footer';
 
-class Meals extends Component {
-  render() {
-    return (
-      <div>
-        Meals
-        <Footer />
-      </div>
-    );
-  }
+function Meals() {
+  return (
+    <div>
+      <Header />
+      Meals
+      <Footer />
+    </div>
+  );
 }
 
 export default Meals;
