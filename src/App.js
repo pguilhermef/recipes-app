@@ -1,14 +1,13 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
-import Drinks from './components/Drinks';
-import Login from './components/Login';
-import Meals from './components/Meals';
-import Profile from './components/Profile';
-import DoneRecipes from './components/DoneRecipes';
+import Login from './pages/Login';
+import Profile from './pages/Profile';
+import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './components/FavoriteRecipes';
 import AppReceitasProvider from './context/AppReceitasProvider';
-import Recipes from './components/Recipes';
+import Recipes from './pages/Recipes';
+import RecipesDetails from './pages/RecipesDetails';
 
 function App() {
   return (
@@ -23,25 +22,25 @@ function App() {
         <Route
           exact
           path="/meals"
-          component={ Meals }
+          component={ Recipes }
         />
 
         <Route
           exact
           path="/meals/:id"
-          component={ Recipes }
+          component={ RecipesDetails }
         />
 
         <Route
           exact
           path="/drinks"
-          component={ Drinks }
+          component={ Recipes }
         />
 
         <Route
           exact
           path="/drinks/:id"
-          component={ Recipes }
+          component={ RecipesDetails }
         />
 
         <Route
