@@ -10,10 +10,10 @@ function Meals() {
     <div>
       <Header />
       { mealsFilterButtons && mealsFilterButtons
-        .filter((drink, index) => index <= Number('5'))
+        .filter((drink, index) => index <= Number('4'))
         .map(({ strCategory }, index) => (
           <button
-            data-testid={ `data-testid=${strCategory}-category-filter` }
+            data-testid={ `${strCategory}-category-filter` }
             key={ index }
             type="button"
           >
