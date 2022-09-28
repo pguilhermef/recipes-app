@@ -4,14 +4,24 @@ import Footer from './Footer';
 import AppReceitasContext from '../context/AppReceitasContext';
 
 function Drinks() {
-  const { drinksToFilter } = useContext(AppReceitasContext);
-  console.log(useContext(AppReceitasContext));
-  console.log(drinks);
+  const { drinksToFilter, drinksFilterButtons } = useContext(AppReceitasContext);
 
   return (
     <div>
       <Header />
-      { drinksToFilter !== undefined && drinksToFilter
+      { drinksFilterButtons && drinksFilterButtons
+        .filter((drink, index) => index <= Number('5'))
+        .map(({ strCategory }, index) => (
+          <button
+            data-testid={ `data-testid=${strCategory}-category-filter` }
+            key={ index }
+            type="button"
+          >
+            { strCategory }
+
+          </button>
+        )) }
+      { drinksToFilter && drinksToFilter
         .filter((drink, index) => index <= Number('11'))
         .map((drink, index) => (
           <div
