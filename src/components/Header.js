@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-// import SearchBar from './SearchBar';
+import SearchBar from './SearchBar';
 
 function Header() {
   const [showSearch, setShowSearch] = React.useState(false);
@@ -47,17 +47,13 @@ function Header() {
       </Link>
       <button type="button" onClick={ handleChangeShow }>
         <img
-          alt="searchIcon"
+          alt="searchIconButton"
           src={ searchIcon }
           data-testid="search-top-btn"
         />
       </button>
       {showSearch && (
-        <div
-          data-testid="search-input"
-        >
-          <SearchBar />
-        </div>
+        <SearchBar />
       )}
     </div>
   );
