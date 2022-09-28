@@ -2,7 +2,8 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import Drinks from './components/Drinks';
-import HeaderFunc from './components/Header';
+import Login from './components/Login';
+// import HeaderFunc from './components/Header';
 import Meals from './components/Meals';
 import Profile from './components/Profile';
 import DoneRecipes from './components/DoneRecipes';
@@ -15,8 +16,8 @@ function App() {
       <Switch>
         <Route
           exact
-          path="/header"
-          component={ HeaderFunc }
+          path="/"
+          component={ Login }
         />
 
         <Route
@@ -29,12 +30,6 @@ function App() {
           exact
           path="/meals"
           component={ Meals }
-        />
-
-        <Route
-          exact
-          path="/drinks"
-          component={ Drinks }
         />
 
         <Route
