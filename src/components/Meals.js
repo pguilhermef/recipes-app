@@ -4,23 +4,40 @@ import Footer from './Footer';
 import AppReceitasContext from '../context/AppReceitasContext';
 
 function Meals() {
-  const { mealsToFilter, mealsFilterButtons } = useContext(AppReceitasContext);
+  const {
+    mealsToFilter,
+    mealsFilterButtons,
+    setToFilterMeals,
+  } = useContext(AppReceitasContext);
+
+  const handleFilterCategory = ({ target }) => {
+    setToFilterMeals(target.value);
+  };
 
   return (
     <div>
       <Header />
       { mealsFilterButtons && mealsFilterButtons
-        .filter((drink, index) => index <= Number('4'))
+        .filter((meals, index) => index <= Number('4'))
         .map(({ strCategory }, index) => (
           <button
+            onClick={ handleFilterCategory }
+            value={ strCategory }
             data-testid={ `${strCategory}-category-filter` }
             key={ index }
             type="button"
           >
             { strCategory }
-
           </button>
         )) }
+      <button
+        onClick={ () => setToFilterMeals('') }
+        data-testid="All-category-filter"
+        type="button"
+      >
+        All
+
+      </button>
       { mealsToFilter && mealsToFilter
         .filter((meal, index) => index <= Number('11'))
         .map((meal, index) => (

@@ -4,7 +4,15 @@ import Footer from './Footer';
 import AppReceitasContext from '../context/AppReceitasContext';
 
 function Drinks() {
-  const { drinksToFilter, drinksFilterButtons } = useContext(AppReceitasContext);
+  const {
+    drinksToFilter,
+    drinksFilterButtons,
+    setToFilterDrinks,
+  } = useContext(AppReceitasContext);
+
+  const handleFilterCategory = ({ target }) => {
+    setToFilterDrinks(target.value);
+  };
 
   return (
     <div>
@@ -13,6 +21,8 @@ function Drinks() {
         .filter((drink, index) => index <= Number('4'))
         .map(({ strCategory }, index) => (
           <button
+            onClick={ handleFilterCategory }
+            value={ strCategory }
             data-testid={ `${strCategory}-category-filter` }
             key={ index }
             type="button"
@@ -21,6 +31,14 @@ function Drinks() {
 
           </button>
         )) }
+      <button
+        onClick={ () => setToFilterDrinks('') }
+        data-testid="All-category-filter"
+        type="button"
+      >
+        All
+
+      </button>
       { drinksToFilter && drinksToFilter
         .filter((drink, index) => index <= Number('11'))
         .map((drink, index) => (

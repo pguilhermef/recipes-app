@@ -5,6 +5,8 @@ import {
   fetchApiDrinks,
   fetchApiMealsFilters,
   fetchApiDrinksFilters,
+  fetchApiMealsFiltered,
+  fetchApiDrinksFiltered,
 } from './Api';
 import AppReceitasContext from './AppReceitasContext';
 
@@ -16,6 +18,8 @@ function AppReceitasProvider({ children }) {
   const [drinksToFilter, setDrinksToFilter] = useState([]);
   const [mealsFilterButtons, setMealsFilterButtons] = useState([]);
   const [drinksFilterButtons, setDrinksFilterButtons] = useState([]);
+  const [toFilterMeals, setToFilterMeals] = useState('');
+  const [toFilterDrinks, setToFilterDrinks] = useState('');
 
   const addEmail = useCallback((value) => {
     setLoginEmail(value);
@@ -37,6 +41,22 @@ function AppReceitasProvider({ children }) {
     setDrinksToFilter(drinks);
   }, [meals, drinks]);
 
+  useEffect(() => {
+    const requestApi = async () => {
+      if (!toFilterMeals.length) return setMealsToFilter(meals);
+      setMealsToFilter(await fetchApiMealsFiltered(toFilterMeals));
+    };
+    requestApi();
+  }, [toFilterMeals, meals]);
+
+  useEffect(() => {
+    const requestApi = async () => {
+      if (!toFilterDrinks.length) return setDrinksToFilter(drinks);
+      setDrinksToFilter(await fetchApiDrinksFiltered(toFilterDrinks));
+    };
+    requestApi();
+  }, [toFilterDrinks, drinks]);
+
   const contextValue = useMemo(() => ({
     addEmail,
     loginEmail,
@@ -46,6 +66,8 @@ function AppReceitasProvider({ children }) {
     drinksToFilter,
     mealsFilterButtons,
     drinksFilterButtons,
+    setToFilterMeals,
+    setToFilterDrinks,
   }), [
     addEmail,
     loginEmail,
@@ -55,6 +77,8 @@ function AppReceitasProvider({ children }) {
     drinksToFilter,
     mealsFilterButtons,
     drinksFilterButtons,
+    setToFilterMeals,
+    setToFilterDrinks,
   ]);
 
   return (
