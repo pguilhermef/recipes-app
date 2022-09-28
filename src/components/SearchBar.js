@@ -4,31 +4,40 @@ import AppReceitasContext from '../context/AppReceitasContext';
 function SearchBar() {
   const [value, setValue] = useState('');
   const [valueSearch, setValueSearch] = useState('');
+  const [typeOfFood, settypeOfFood] = useState();
   const { fetchIngredientsAPIs,
-    fetchNameAPIs, fetchFirstLeatterAPIs } = useContext(AppReceitasContext);
+    fetchNameAPIs, fetchFirstLeatterAPIs, pathname } = useContext(AppReceitasContext);
+
+  const checkPathName = () => {
+    if (pathname === '/meals') {
+      settypeOfFood('meal');
+    } if (pathname === '/drinks') {
+      settypeOfFood('cocktail');
+    }
+  };
 
   const handleClick = () => {
     switch (value) {
     case 'ingredient':
-      fetchIngredientsAPIs(valueSearch);
+      fetchIngredientsAPIs(valueSearch, typeOfFood);
       break;
     case 'name':
-      fetchNameAPIs(valueSearch);
+      fetchNameAPIs(valueSearch, typeOfFood);
       break;
     case 'firstLeatter':
       if (valueSearch.length > 1) {
         global.alert('Your search must have only 1 (one) character');
       }
-      fetchFirstLeatterAPIs(valueSearch);
+      fetchFirstLeatterAPIs(valueSearch, typeOfFood);
       break;
     default:
       break;
     }
-    return ('oi');
   };
 
   const handleChange = ({ target }) => {
     setValue(target.id);
+    checkPathName();
   };
 
   return (
@@ -36,6 +45,7 @@ function SearchBar() {
       <input
         type="text"
         name="searchBar"
+        data-testid="search-input"
         onChange={ (event) => setValueSearch(event.target.value) }
       />
 

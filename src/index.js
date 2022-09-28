@@ -1,12 +1,15 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import './index.css';
+import { BrowserRouter } from 'react-router-dom';
+import AppReceitasProvider from './context/AppReceitasProvider';
 import App from './App';
 
 ReactDOM.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
+  <AppReceitasProvider>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </AppReceitasProvider>,
   document.getElementById('root'),
 );
