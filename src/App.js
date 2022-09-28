@@ -8,6 +8,7 @@ import Profile from './components/Profile';
 import DoneRecipes from './components/DoneRecipes';
 import FavoriteRecipes from './components/FavoriteRecipes';
 import AppReceitasProvider from './context/AppReceitasProvider';
+import Recipes from './components/Recipes';
 
 function App() {
   return (
@@ -27,14 +28,20 @@ function App() {
 
         <Route
           exact
-          path="/meals"
-          component={ Meals }
+          path="/meals/:id"
+          component={ Recipes }
         />
 
         <Route
           exact
           path="/drinks"
           component={ Drinks }
+        />
+
+        <Route
+          exact
+          path="/drinks/:id"
+          component={ Recipes }
         />
 
         <Route

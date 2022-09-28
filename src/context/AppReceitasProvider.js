@@ -68,6 +68,8 @@ function AppReceitasProvider({ children }) {
     drinksFilterButtons,
     setToFilterMeals,
     setToFilterDrinks,
+    toFilterMeals,
+    toFilterDrinks,
   }), [
     addEmail,
     loginEmail,
@@ -79,6 +81,8 @@ function AppReceitasProvider({ children }) {
     drinksFilterButtons,
     setToFilterMeals,
     setToFilterDrinks,
+    toFilterMeals,
+    toFilterDrinks,
   ]);
 
   return (

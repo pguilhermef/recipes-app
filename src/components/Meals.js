@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import AppReceitasContext from '../context/AppReceitasContext';
@@ -8,9 +9,12 @@ function Meals() {
     mealsToFilter,
     mealsFilterButtons,
     setToFilterMeals,
+    toFilterMeals,
   } = useContext(AppReceitasContext);
 
   const handleFilterCategory = ({ target }) => {
+    if (target.value === toFilterMeals) return setToFilterMeals('');
+
     setToFilterMeals(target.value);
   };
 
@@ -41,17 +45,20 @@ function Meals() {
       { mealsToFilter && mealsToFilter
         .filter((meal, index) => index <= Number('11'))
         .map((meal, index) => (
-          <div
-            data-testid={ `${index}-recipe-card` }
-            key={ meal.idMeal }
-          >
-            <img
-              data-testid={ `${index}-card-img` }
-              src={ meal.strMealThumb }
-              alt={ meal.strMeal }
-            />
-            <span data-testid={ `${index}-card-name` }>{ meal.strMeal }</span>
-          </div>))}
+          <Link to={ `/meals/${meal.idMeal}` } key={ index }>
+            <div
+              data-testid={ `${index}-recipe-card` }
+              key={ meal.idMeal }
+            >
+              <img
+                data-testid={ `${index}-card-img` }
+                src={ meal.strMealThumb }
+                alt={ meal.strMeal }
+              />
+              <span data-testid={ `${index}-card-name` }>{ meal.strMeal }</span>
+            </div>
+          </Link>
+        ))}
       <Footer />
     </div>
   );
