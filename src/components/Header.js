@@ -52,7 +52,13 @@ function Header() {
           data-testid="search-top-btn"
         />
       </button>
-      {showSearch && <div>não quebra pls</div>}
+      {showSearch && (
+        <div
+          data-testid="search-input"
+        >
+          <SearchBar />
+        </div>
+      )}
     </div>
   );
 }
