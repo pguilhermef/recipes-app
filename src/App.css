@@ -72,3 +72,21 @@
     transform: rotate(-10deg);
   }
 }
+
+.wrapper {
+  border: 1px solid #ddd;
+  display: flex;
+  max-height: 150px;
+  overflow-x: auto;
+}
+
+.wrapper::-webkit-scrollbar {
+  width: 2;
+}
+
+.wrapper .item {
+  background: #ddd;
+  margin-right: 5px;
+  min-width: 200px;
+  text-align: center;
+}
