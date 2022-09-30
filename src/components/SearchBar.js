@@ -35,13 +35,11 @@ function SearchBar() {
     case 'name':
       fetchNameAPIs(valueSearch, typeOfFood);
       break;
-    case 'firstLeatter':
+    default:
       if (valueSearch.length > 1) {
         global.alert('Your search must have only 1 (one) character');
       }
       fetchFirstLeatterAPIs(valueSearch, typeOfFood);
-      break;
-    default:
       break;
     }
   };
