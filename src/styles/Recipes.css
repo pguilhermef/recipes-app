@@ -22,3 +22,20 @@
   display: flex;
   justify-content: space-between;
 }
+
+.xablamenes {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#btn-1 {
+  flex-grow: 1;
+}
+
+#btn-2, #btn-3 {
+  flex-grow: 2;
+}
+
+#btn-4 {
+  flex-grow: 4;
+}
