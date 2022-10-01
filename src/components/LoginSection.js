@@ -85,7 +85,7 @@ function LoginSection() {
           />
         </span>
         <input
-          type="senha"
+          type="password"
           value={ password }
           id="input-password"
           data-testid="password-input"
