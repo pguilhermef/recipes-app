@@ -31,6 +31,7 @@ function Drinks() {
             .map(({ strCategory }, index) => (
               <button
                 className="btn btn-dark btn-sm mt-1"
+                style={ { backgroundColor: '#421d1d' } }
                 onClick={ handleFilterCategory }
                 value={ strCategory }
                 data-testid={ `${strCategory}-category-filter` }
@@ -45,6 +46,7 @@ function Drinks() {
         <div className="d-grid gap-2">
           <button
             className="btn btn-dark mt-1"
+            style={ { backgroundColor: '#421d1d' } }
             onClick={ () => setToFilterDrinks('') }
             data-testid="All-category-filter"
             type="button"

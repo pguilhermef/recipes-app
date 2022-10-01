@@ -36,30 +36,44 @@ function Header() {
     );
   }
   return (
-    <div>
-      <div data-testid="page-title">{titleOfPage}</div>
-      <Link to="/profile">
-        <img
-          alt="profileIcon"
-          src={ profileIcon }
-          data-testid="profile-top-btn"
-        />
-      </Link>
-      <button type="button" onClick={ handleChangeShow }>
-        <img
-          alt="searchIcon"
-          src={ searchIcon }
-          data-testid="search-top-btn"
-        />
-      </button>
-      {showSearch && (
+    <nav className="navbar" style={ { backgroundColor: '#421d1d' } }>
+      <div className="container-fluid">
         <div
-          data-testid="search-input"
+          className="navbar-brand text-white"
+          data-testid="page-title"
         >
-          <SearchBar />
+          {titleOfPage}
         </div>
-      )}
-    </div>
+        <form className="d-flex" role="search">
+          {showSearch && (
+            <div
+              data-testid="search-input"
+            >
+              <SearchBar />
+            </div>
+          )}
+          <button
+            className="me-2 btn btn-sm bg-white"
+            type="button"
+            onClick={ handleChangeShow }
+          >
+            <img
+              alt="searchIcon"
+              src={ searchIcon }
+              data-testid="search-top-btn"
+            />
+          </button>
+          <Link to="/profile">
+            <img
+              className="me-2 btn btn-sm bg-white"
+              alt="profileIcon"
+              src={ profileIcon }
+              data-testid="profile-top-btn"
+            />
+          </Link>
+        </form>
+      </div>
+    </nav>
   );
 }
 

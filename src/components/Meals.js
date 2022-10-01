@@ -31,6 +31,7 @@ function Meals() {
             .map(({ strCategory }, index) => (
               <button
                 className="btn btn-dark btn-sm mt-1"
+                style={ { backgroundColor: '#421d1d' } }
                 onClick={ handleFilterCategory }
                 value={ strCategory }
                 data-testid={ `${strCategory}-category-filter` }
@@ -44,6 +45,7 @@ function Meals() {
         <div className="d-grid gap-2">
           <button
             className="btn btn-dark mt-1"
+            style={ { backgroundColor: '#421d1d' } }
             onClick={ () => setToFilterMeals('') }
             data-testid="All-category-filter"
             type="button"
@@ -66,6 +68,7 @@ function Meals() {
               >
                 <div
                   className="glassmorphism text-center"
+                  style={ { borderColor: '#421d1d' } }
                 >
                   <p
                     data-testid={ `${index}-card-name` }
