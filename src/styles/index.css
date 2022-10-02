@@ -1,0 +1,26 @@
+.carrousel {
+  background-color: red;
+  display: flex;
+  overflow-x: auto;
+  width: 100vw;
+}
+
+.carrouselChield {
+  flex: none;
+  width: 360px;
+}
+
+.carrouselChield, img {
+
+  width: 50%;
+}
+
+.buttonStart {
+  bottom: 0;
+  position: fixed;
+}
+
+.imgRecomendation {
+  flex: none;
+  width: 76%;
+}
