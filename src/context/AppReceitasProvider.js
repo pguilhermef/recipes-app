@@ -22,6 +22,8 @@ function AppReceitasProvider({ children }) {
   const [drinksFilterButtons, setDrinksFilterButtons] = useState([]);
   const [toFilterMeals, setToFilterMeals] = useState('');
   const [toFilterDrinks, setToFilterDrinks] = useState('');
+  const [foodById, setFoodById] = useState();
+  const [arrayOfIngredients, setArrayOfIngredients] = useState([]);
 
   const addEmail = useCallback((value) => {
     setLoginEmail(value);
@@ -80,6 +82,28 @@ function AppReceitasProvider({ children }) {
     requestApi();
   }, []);
 
+  const requestAPIbyID = useCallback(async (id, typeOfFood) => {
+    const url = `https://www.the${typeOfFood}db.com/api/json/v1/1/lookup.php?i=${id}`;
+    const response = await fetch(url);
+    const result = await response.json();
+    let ingredients = [];
+    if (typeOfFood === 'meal') {
+      setFoodById(result.meals[0]);
+      ingredients = Object.entries(result.meals[0])
+        .filter((e) => e[0].includes('strIngredient'))
+        .map((e) => e[1])
+        .filter((e) => e !== null && e.length > 0);
+    } else if (typeOfFood === 'cocktail') {
+      setFoodById(result.drinks[0]);
+      ingredients = Object.entries(result.drinks[0])
+        .filter((e) => e[0].includes('strIngredient'))
+        .map((e) => e[1])
+        .filter((e) => e !== null && e.length > 0);
+    }
+
+    setArrayOfIngredients(ingredients);
+  }, []);
+
   useEffect(() => {
     setMealsToFilter(meals);
     setDrinksToFilter(drinks);
@@ -120,6 +144,9 @@ function AppReceitasProvider({ children }) {
     setToFilterDrinks,
     toFilterMeals,
     toFilterDrinks,
+    requestAPIbyID,
+    foodById,
+    arrayOfIngredients,
   }), [
     pathname,
     filteredList,
@@ -139,6 +166,9 @@ function AppReceitasProvider({ children }) {
     setToFilterDrinks,
     toFilterMeals,
     toFilterDrinks,
+    requestAPIbyID,
+    foodById,
+    arrayOfIngredients,
   ]);
 
   return (
