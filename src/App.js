@@ -6,7 +6,7 @@ import Profile from './pages/Profile';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './components/FavoriteRecipes';
 import AppReceitasProvider from './context/AppReceitasProvider';
-import Recipes from './components/Recipes';
+import Recipes from './pages/Recipes';
 import RecipeInProgress from './components/RecipeInProgress';
 import RecipesDetails from './pages/RecipesDetails';
 

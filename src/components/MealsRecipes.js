@@ -15,7 +15,7 @@ export default function MealsRecipes({ value }) {
       setMealsApi(result.meals[0]);
     };
     getApiResult();
-  }, []);
+  }, [value]);
 
   useEffect(() => {
     const fetchRecommendedDrinks = async () => {
