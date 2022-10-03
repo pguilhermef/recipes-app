@@ -1,11 +1,11 @@
 import React, { useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { Link, useHistory } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import AppReceitasContext from '../context/AppReceitasContext';
 
-function Meals({ history }) {
+function Meals() {
+  const history = useHistory();
   const {
     passPathName,
     filteredList,
@@ -81,14 +81,5 @@ function Meals({ history }) {
     </div>
   );
 }
-
-Meals.propTypes = {
-  history: PropTypes.shape({
-    location: PropTypes.shape({
-      pathname: PropTypes.string.isRequired,
-    }).isRequired,
-    push: PropTypes.func.isRequired,
-  }).isRequired,
-};
 
 export default Meals;

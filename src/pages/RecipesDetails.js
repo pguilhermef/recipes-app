@@ -25,18 +25,16 @@ export default function RecipesDetails(props) {
     return data.drinks;
   };
 
-  const setStateMeals = async () => {
-    setRecipeMealsDetails(await fetchApiMealsDetails(params.id));
-  };
-
-  const setStateDrinks = async () => {
-    setRecipeDrinksDetails(await fetchApiDrinksDetails(params.id));
-  };
-
   useEffect(() => {
+    const setStateMeals = async () => {
+      setRecipeMealsDetails(await fetchApiMealsDetails(params.id));
+    };
+    const setStateDrinks = async () => {
+      setRecipeDrinksDetails(await fetchApiDrinksDetails(params.id));
+    };
     if (pathname.includes('/meals/')) return setStateMeals();
     if (pathname.includes('/drinks/')) return setStateDrinks();
-  }, []);
+  }, [pathname, params.id]);
 
   return (
     <main>
