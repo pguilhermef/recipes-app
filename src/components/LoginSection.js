@@ -49,7 +49,7 @@ function LoginSection() {
   return (
     <form
       className="col-10 col-md-6 col-lg-4 rounded-3 p-4 shadow"
-      style={ { maxWidth: '400px', background: 'white' } }
+      style={ { maxWidth: '400px', background: 'white', marginTop: '35%' } }
     >
       <img
         src={ restaurantLogo }

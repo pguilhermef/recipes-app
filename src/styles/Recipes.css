@@ -18,12 +18,12 @@
   margin-bottom: 5px;
 }
 
-.xablastes {
+.meal-buttons {
   display: flex;
   justify-content: space-between;
 }
 
-.xablamenes {
+.drink-buttons {
   display: flex;
   flex-wrap: wrap;
 }

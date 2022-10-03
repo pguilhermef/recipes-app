@@ -34,12 +34,12 @@ export default function DrinksRecipes({ value }) {
   if (value) {
     return (
       value && (
-        <section>
+        <main className="drinks-wallpaper">
           <img
             alt={ value[0].strDrink }
             src={ value[0].strDrinkThumb }
             data-testid="recipe-photo"
-            className="img-fluid mx-auto d-block"
+            className="img-fluid img-thumbnail"
           />
           <div data-testid="recipe-title">{ value[0].strDrink }</div>
           <div data-testid="recipe-category">
@@ -51,20 +51,23 @@ export default function DrinksRecipes({ value }) {
             }
 
           </div>
-          <h3>Ingredientes:</h3>
-          <ul>
-            {apiDrink && numbers.map((i) => (
-              apiDrink[`strIngredient${[i]}`])
+          <div className="container">
+            <h3>Ingredientes:</h3>
+            <ul className="list-group">
+              {apiDrink && numbers.map((i) => (
+                apiDrink[`strIngredient${[i]}`])
               && (
                 <li
                   data-testid={ `${i - 1}-ingredient-name-and-measure` }
                   key={ apiDrink[`strIngredient${[i]}`] }
+                  className="list-group-item"
                 >
                   {apiDrink[`strIngredient${[i]}`]}
                   {apiDrink[`strMeasure${i}`]}
                 </li>
               ))}
-          </ul>
+            </ul>
+          </div>
           <h3>Modo de preparo:</h3>
           <p data-testid="instructions">{ value[0].strInstructions }</p>
           <h3 className="title-meals-details">Recommended:</h3>
@@ -102,7 +105,7 @@ export default function DrinksRecipes({ value }) {
             </button>
           )}
 
-        </section>)
+        </main>)
     );
   }
 }

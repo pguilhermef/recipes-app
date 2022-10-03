@@ -1,3 +1,22 @@
+.login-page {
+  background: url('../images/mealsWallpaper.png');
+  background-size: 100%;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+.drinks-page {
+  background-image: url('../images/drinksWallpaper.png');
+  background-size: 99%;
+  background-repeat: repeat-y;
+}
+
+.meals-page {
+  background-image: url('../images/espaguete.jpg');
+  background-size: 99%;
+  background-repeat: repeat-y;
+}
+
 .carrousel {
   background-color: red;
   display: flex;
