@@ -73,7 +73,7 @@ function Meals() {
                   >
                     <p
                       data-testid={ `${index}-card-name` }
-                      className="my-2"
+                      className="my-2 text-light"
                     >
                       { meal.strMeal }
                     </p>
