@@ -47,17 +47,13 @@ function Header() {
       </Link>
       <button type="button" onClick={ handleChangeShow }>
         <img
-          alt="searchIcon"
+          alt="searchIconButton"
           src={ searchIcon }
           data-testid="search-top-btn"
         />
       </button>
       {showSearch && (
-        <div
-          data-testid="search-input"
-        >
-          <SearchBar />
-        </div>
+        <SearchBar />
       )}
     </div>
   );

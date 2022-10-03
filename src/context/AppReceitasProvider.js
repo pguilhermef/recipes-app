@@ -12,6 +12,8 @@ import AppReceitasContext from './AppReceitasContext';
 
 function AppReceitasProvider({ children }) {
   const [loginEmail, setLoginEmail] = useState('');
+  const [pathname, setPathname] = useState();
+  const [filteredList, setfilteredList] = useState();
   const [meals, setMeals] = useState([]);
   const [drinks, setDrinks] = useState([]);
   const [mealsToFilter, setMealsToFilter] = useState([]);
@@ -25,6 +27,48 @@ function AppReceitasProvider({ children }) {
     setLoginEmail(value);
   }, []);
 
+  const fetchIngredientsAPIs = useCallback(async (ingredient, typeOfFood) => {
+    const url = `https://www.the${typeOfFood}db.com/api/json/v1/1/filter.php?i=${ingredient}`;
+    const response = await fetch(url);
+    const result = await response.json();
+    if (typeOfFood === 'meal') {
+      setMealsToFilter(result.meals);
+      setfilteredList(result);
+    } else if (typeOfFood === 'cocktail') {
+      setDrinksToFilter(result.drinks);
+      setfilteredList(result);
+    }
+  }, []);
+
+  const fetchNameAPIs = useCallback(async (name, typeOfFood) => {
+    const url = `https://www.the${typeOfFood}db.com/api/json/v1/1/search.php?s=${name}`;
+    const response = await fetch(url);
+    const result = await response.json();
+    if (typeOfFood === 'meal') {
+      setMealsToFilter(result.meals);
+      setfilteredList(result);
+    } else if (typeOfFood === 'cocktail') {
+      setDrinksToFilter(result.drinks);
+      setfilteredList(result);
+    }
+  }, []);
+
+  const fetchFirstLeatterAPIs = useCallback(async (firstLeatter, typeOfFood) => {
+    const url = `https://www.the${typeOfFood}db.com/api/json/v1/1/search.php?f=${firstLeatter}`;
+    const response = await fetch(url);
+    const result = await response.json();
+    if (typeOfFood === 'meal') {
+      setMealsToFilter(result.meals);
+      setfilteredList(result);
+    } else if (typeOfFood === 'cocktail') {
+      setDrinksToFilter(result.drinks);
+      setfilteredList(result);
+    }
+  }, []);
+
+  const passPathName = useCallback((pathnameParam) => {
+    setPathname(pathnameParam);
+  }, []);
   // Quando rendenizado, é aqui que devem ser feitas todas as requisições à API's!
   useEffect(() => {
     const requestApi = async () => {
@@ -58,6 +102,12 @@ function AppReceitasProvider({ children }) {
   }, [toFilterDrinks, drinks]);
 
   const contextValue = useMemo(() => ({
+    pathname,
+    filteredList,
+    fetchIngredientsAPIs,
+    fetchNameAPIs,
+    fetchFirstLeatterAPIs,
+    passPathName,
     addEmail,
     loginEmail,
     meals,
@@ -71,6 +121,12 @@ function AppReceitasProvider({ children }) {
     toFilterMeals,
     toFilterDrinks,
   }), [
+    pathname,
+    filteredList,
+    fetchIngredientsAPIs,
+    fetchNameAPIs,
+    fetchFirstLeatterAPIs,
+    passPathName,
     addEmail,
     loginEmail,
     meals,
