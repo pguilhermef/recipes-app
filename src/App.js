@@ -9,6 +9,7 @@ import DoneRecipes from './components/DoneRecipes';
 import FavoriteRecipes from './components/FavoriteRecipes';
 import AppReceitasProvider from './context/AppReceitasProvider';
 import Recipes from './components/Recipes';
+import RecipeInProgress from './components/RecipeInProgress';
 
 function App() {
   return (
@@ -34,6 +35,12 @@ function App() {
 
         <Route
           exact
+          path="/meals/:id/in-progress"
+          component={ RecipeInProgress }
+        />
+
+        <Route
+          exact
           path="/drinks"
           component={ Drinks }
         />
@@ -42,6 +49,12 @@ function App() {
           exact
           path="/drinks/:id"
           component={ Recipes }
+        />
+
+        <Route
+          exact
+          path="/drinks/:id/in-progress"
+          component={ RecipeInProgress }
         />
 
         <Route
