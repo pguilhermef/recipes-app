@@ -10,15 +10,15 @@
 }
 
 .title-recipes {
-  margin: 5px solid red;
   font-weight: 700;
-  padding:20px;
+  margin: 5px solid red;
+  padding: 20px;
   text-align: center;
 }
 
 .Description-instruction {
   font-size: 20px;
-  margin-bottom: 0px;
+  margin-bottom: 0%;
   text-align: justify;
 }
 
