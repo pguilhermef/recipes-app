@@ -71,7 +71,6 @@ function AppReceitasProvider({ children }) {
   const passPathName = useCallback((pathnameParam) => {
     setPathname(pathnameParam);
   }, []);
-  // Quando rendenizado, é aqui que devem ser feitas todas as requisições à API's!
   useEffect(() => {
     const requestApi = async () => {
       setMeals(await fetchApiMeals());

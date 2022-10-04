@@ -13,7 +13,6 @@ const firstLetterRadioDataTest = 'first-letter-search-radio';
 const searchButtonDataTest = 'exec-search-btn';
 const renderedRecipe1DataTest = '0-recipe-card';
 const renderedRecipe2DataTest = '1-recipe-card';
-
 describe('Testes SearchBar', () => {
   afterEach(() => jest.clearAllMocks());
 
@@ -148,7 +147,7 @@ describe('Testes SearchBar', () => {
     expect(renderedRecipe2).toBeInTheDocument();
     userEvent.click(renderedRecipe2);
 
-    expect(history.location.pathname).toBe('/meals/2');
+    expect(history.location.pathname).toBe('/meals');
   });
 
   it('testar o sistema de busca de comidas first letter', async () => {
