@@ -1,17 +1,21 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import clipboardCopy from 'clipboard-copy';
 import AppReceitasContext from '../context/AppReceitasContext';
-import Favorite from '../images/whiteHeartIcon.svg';
-import Unfavorite from '../images/blackHeartIcon.svg';
+import Unfavorite from '../images/whiteHeartIcon.svg';
+import Favorite from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import '../styles/RecipesInProgress.css';
 
 function RecipeInProgress({ location: { pathname } }) {
+  const history = useHistory();
   const { requestAPIbyID, foodById, arrayOfIngredients } = useContext(AppReceitasContext);
   const [ingredientsProgress, setIngredientsProgress] = useState([]);
   const [linkCopiedAlert, setLinkCopiedAlert] = useState(false);
+  const [favoriteFood, setFavoriteFood] = useState([]);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [ifFinishButtonIsDisable, setIfFinishButtonIsDisable] = useState(true);
   const [handlePathnameToDisplay, setHandlePathnameToDisplay] = useState({
     name: '',
     thumb: '',
@@ -19,6 +23,7 @@ function RecipeInProgress({ location: { pathname } }) {
   const idFood = pathname.split('/')[2];
   const typeOfFood = pathname.split('/')[1];
   const localStorageName = 'Food Progress';
+  const localStorageFAvoriteName = 'favoriteRecipes';
   const { name, thumb } = handlePathnameToDisplay;
 
   useEffect(() => {
@@ -44,16 +49,12 @@ function RecipeInProgress({ location: { pathname } }) {
   useEffect(() => {
     if (foodById !== undefined) {
       setIngredientsProgress(JSON.parse(localStorage.getItem(localStorageName)));
+      setFavoriteFood(JSON.parse(localStorage.getItem(localStorageFAvoriteName)));
     } else {
       setIngredientsProgress([]);
+      setFavoriteFood([]);
     }
-
-    if (JSON.parse(localStorage.getItem('favoriteRecipes'))) {
-      console.log();
-      // setIsFavorite(JSON.parse(localStorage
-      //   .getItem('favoriteRecipes').includes(foodById[name])));
-    }
-  }, [foodById, setIsFavorite, name]);
+  }, [foodById, setIsFavorite]);
 
   const saveProgress = ({ target }) => {
     if (target.checked === true && ingredientsProgress === null) {
@@ -79,10 +80,27 @@ function RecipeInProgress({ location: { pathname } }) {
   };
 
   useEffect(() => {
+    const ifIsFavorite = () => {
+      const localStorageOfFavorite = favoriteFood;
+      if (localStorageOfFavorite !== null) {
+        const verification = localStorageOfFavorite.some((e) => e.id === idFood);
+        return verification;
+      }
+      return false;
+    };
     if (foodById !== undefined && foodById !== []) {
       localStorage.setItem(localStorageName, JSON.stringify(ingredientsProgress));
+      localStorage.setItem(localStorageFAvoriteName, JSON.stringify(favoriteFood));
+      setIsFavorite(ifIsFavorite());
     }
-  }, [ingredientsProgress, foodById]);
+    if (ingredientsProgress !== null
+      && ingredientsProgress.length === arrayOfIngredients.length) {
+      setIfFinishButtonIsDisable(false);
+    } else {
+      setIfFinishButtonIsDisable(true);
+    }
+  }, [ingredientsProgress, foodById, favoriteFood,
+    setIsFavorite, idFood, setIfFinishButtonIsDisable, arrayOfIngredients]);
 
   const handleShare = () => {
     const foodURL = window.location.href.split('/in-progress');
@@ -92,15 +110,31 @@ function RecipeInProgress({ location: { pathname } }) {
   };
 
   const handleFavoriteFood = () => {
-    if (isFavorite === false) {
-      // setStorage(
-      //   'favoriteRecipes',
-      //   JSON.stringify((prevfoodById) => [...prevfoodById, foodById]),
-      // );
+    const itemToFavorite = {
+      id: idFood,
+      type: typeOfFood === 'meals' ? 'meal' : 'drink',
+      nationality: foodById.strArea ? foodById.strArea : '',
+      category: foodById.strCategory ? foodById.strCategory : '',
+      alcoholicOrNot: foodById.strAlcoholic ? foodById.strAlcoholic : '',
+      name: foodById[name],
+      image: foodById[thumb],
+    };
+    if (isFavorite === false && favoriteFood === null) {
       setIsFavorite(true);
+      setFavoriteFood([itemToFavorite]);
+    } else if (isFavorite === false && favoriteFood !== null) {
+      setIsFavorite(true);
+      setFavoriteFood((prevFavoriteFood) => [...prevFavoriteFood, itemToFavorite]);
     } else if (isFavorite === true) {
       setIsFavorite(false);
+      const removeFavoriteFood = favoriteFood.filter((e) => e.id !== itemToFavorite.id);
+      console.log(removeFavoriteFood);
+      setFavoriteFood(removeFavoriteFood);
     }
+  };
+
+  const handleFinishRecipe = () => {
+    history.push('/done-recipes');
   };
 
   return (
@@ -172,6 +206,8 @@ function RecipeInProgress({ location: { pathname } }) {
               type="button"
               data-testid="finish-recipe-btn"
               className="finish-recipe-button"
+              disabled={ ifFinishButtonIsDisable }
+              onClick={ handleFinishRecipe }
             >
               Finalizar Receita
             </button>
