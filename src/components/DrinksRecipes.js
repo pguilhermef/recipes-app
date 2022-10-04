@@ -34,28 +34,32 @@ export default function DrinksRecipes({ value }) {
   if (value) {
     return (
       value && (
-        <main className="drinks-wallpaper">
+        <main className="drinks-page miau">
+          {/* Imagem */}
           <img
             alt={ value[0].strDrink }
             src={ value[0].strDrinkThumb }
             data-testid="recipe-photo"
-            className="img-fluid img-thumbnail"
+            className="img-fluid img-thumbnail mt-4 recipe-detail-thumbnail"
           />
-          <div data-testid="recipe-title">{ value[0].strDrink }</div>
-          <div data-testid="recipe-category">
-            {
-              value[0].strCategory
-            }
-            {
-              value[0].strAlcoholic
-            }
+          {/* Nome e Ingredientes */}
+          <div className="text-light">
+            <h3 className="mt-2" data-testid="recipe-title">{ value[0].strDrink }</h3>
 
-          </div>
-          <div className="container">
-            <h3>Ingredientes:</h3>
-            <ul className="list-group">
-              {apiDrink && numbers.map((i) => (
-                apiDrink[`strIngredient${[i]}`])
+            <div className="mt-0 miau-2" data-testid="recipe-category">
+              <span>
+                {value[0].strCategory}
+                {' '}
+                -
+                {' '}
+                {value[0].strAlcoholic}
+              </span>
+            </div>
+            <div className="mt-2">
+              <h3>Ingredientes:</h3>
+              <ul className="list-group">
+                {apiDrink && numbers.map((i) => (
+                  apiDrink[`strIngredient${[i]}`])
               && (
                 <li
                   data-testid={ `${i - 1}-ingredient-name-and-measure` }
@@ -66,33 +70,49 @@ export default function DrinksRecipes({ value }) {
                   {apiDrink[`strMeasure${i}`]}
                 </li>
               ))}
-            </ul>
+              </ul>
+            </div>
           </div>
-          <h3>Modo de preparo:</h3>
-          <p data-testid="instructions">{ value[0].strInstructions }</p>
-          <h3 className="title-meals-details">Recommended:</h3>
-          <section className="wrapper">
-            {recommendedMeals
-      && (recommendedMeals.slice(0, maxRecommended)
-        .map(({ strMealThumb, strMeal, idMeal }, index) => (
-          <div
-            className="item"
-            key={ idMeal }
-            data-testid={ `${index}-recommendation-card` }
-          >
-            <p
-              data-testid={ `${index}-recommendation-title` }
-            >
-              { strMeal }
-            </p>
-            <img
-              src={ strMealThumb }
-              alt={ strMeal }
-            />
-          </div>
-        )))}
+          {/* Modo de Preparo */}
+          <div className="container text-light">
+            <h3 className="mt-2">Modo de preparo:</h3>
+            <p data-testid="instructions">{ value[0].strInstructions }</p>
 
-          </section>
+          </div>
+          {/* Recomendado */}
+          <div className="text-light">
+            <h3 className="container title-meals-details">Recommended:</h3>
+
+            <div className="container-fluid">
+              <div className="row flex-row flex-nowrap overflow-auto">
+                {recommendedMeals
+              && (recommendedMeals.slice(0, maxRecommended)
+                .map(({ strMealThumb, strMeal, idMeal }, index) => (
+                  <div
+                    key={ idMeal }
+                    className="glassmorphism me-1 mb-5"
+                    data-testid={ `${index}-recommendation-card` }
+                    style={ { width: '11rem' } }
+                  >
+                    <h5
+                      className="mt-1"
+                      data-testid={ `${index}-recommendation-title` }
+                    >
+                      { strMeal }
+                    </h5>
+
+                    <img
+                      src={ strMealThumb }
+                      alt={ strMeal }
+                      className="card-img-top rounded img-thumbnail"
+                    />
+
+                  </div>
+                )))}
+              </div>
+            </div>
+          </div>
+
           {buttonStart && (
             <button
               data-testid="start-recipe-btn"

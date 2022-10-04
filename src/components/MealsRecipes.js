@@ -34,14 +34,14 @@ export default function MealsRecipes({ value }) {
     return (
       value && (
         value.map((item) => (
-          <main key={ item.strMeal }>
+          <main key={ item.strMeal } className="drinks-page">
             <img
               alt={ item.strMeal }
               src={ item.strMealThumb }
               data-testid="recipe-photo"
-              className="img-fluid mx-auto d-block"
+              className="img-fluid img-thumbnail mt-4 recipe-detail-thumbnail"
             />
-            <div data-testid="recipe-title">{item.strMeal}</div>
+            <h3 className="mt-2" data-testid="recipe-title">{item.strMeal}</h3>
             <div data-testid="recipe-category">{item.strCategory}</div>
             <h3>Ingredientes:</h3>
             <ul>
