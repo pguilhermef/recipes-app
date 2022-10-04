@@ -34,7 +34,7 @@ export default function DrinksRecipes({ value }) {
   if (value) {
     return (
       value && (
-        <main className="drinks-page miau">
+        <main className="drinks-page adjust-menu-infos">
           {/* Imagem */}
           <img
             alt={ value[0].strDrink }
@@ -46,7 +46,9 @@ export default function DrinksRecipes({ value }) {
           <div className="text-light">
             <h3 className="mt-2" data-testid="recipe-title">{ value[0].strDrink }</h3>
 
-            <div className="mt-0 miau-2" data-testid="recipe-category">
+            <div
+              data-testid="recipe-category"
+            >
               <span>
                 {value[0].strCategory}
                 {' '}
@@ -55,7 +57,7 @@ export default function DrinksRecipes({ value }) {
                 {value[0].strAlcoholic}
               </span>
             </div>
-            <div className="mt-2">
+            <div className="mt-2 container">
               <h3>Ingredientes:</h3>
               <ul className="list-group">
                 {apiDrink && numbers.map((i) => (
@@ -74,10 +76,9 @@ export default function DrinksRecipes({ value }) {
             </div>
           </div>
           {/* Modo de Preparo */}
-          <div className="container text-light">
+          <div className="container text-light glassmorphism">
             <h3 className="mt-2">Modo de preparo:</h3>
             <p data-testid="instructions">{ value[0].strInstructions }</p>
-
           </div>
           {/* Recomendado */}
           <div className="text-light">
@@ -116,9 +117,10 @@ export default function DrinksRecipes({ value }) {
           {buttonStart && (
             <button
               data-testid="start-recipe-btn"
-              className="buttonStart"
+              className="btn buttonStart text-light"
               type="button"
               onClick={ handleStartRecipe }
+              style={ { backgroundColor: '#421d1d' } }
             >
               Start Recipe
 

@@ -4,7 +4,6 @@ import Header from './Header';
 import Footer from './Footer';
 import AppReceitasContext from '../context/AppReceitasContext';
 import '../styles/Recipes.css';
-import '../styles/DrinksRecipes.css';
 
 function Drinks() {
   const {

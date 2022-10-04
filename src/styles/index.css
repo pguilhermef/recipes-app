@@ -12,7 +12,7 @@
 }
 
 .meals-page {
-  background-image: url('../images/espaguete.jpg');
+  background-image: url('../images/meals.jpg');
   background-size: 99%;
   background-repeat: repeat-y;
 }
@@ -30,8 +30,8 @@
 }
 
 .buttonStart {
-  /* bottom: 0;
-  right: 35%; */
+  bottom: 0;
+  right: 35%;
   position: fixed;
 }
 

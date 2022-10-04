@@ -33,11 +33,18 @@
   margin-left: 8px;
 }
 
-.miau h3, span, p {
+.adjust-menu-infos h3, span {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-shadow: 3px 2px #000000
+}
+
+.adjust-menu-infos p {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-shadow: 2px 1px #000000
 }
 
 /* Botões do menu de Drinks */
