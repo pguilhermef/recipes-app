@@ -36,7 +36,6 @@ function RecipeInProgress({ location: { pathname } }) {
         });
       } if (typeOfFood === 'drinks') {
         requestAPIbyID(idFood, 'cocktail');
-        setHandlePathnameToDisplay('Drink');
         setHandlePathnameToDisplay({
           name: 'strDrink',
           thumb: 'strDrinkThumb',
