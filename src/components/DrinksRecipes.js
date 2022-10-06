@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import PropTypes, { string } from 'prop-types';
+import { Link } from 'react-router-dom';
 import numbers from '../helpers/helpers';
 import '../styles/index.css';
 
@@ -8,6 +9,13 @@ export default function DrinksRecipes({ value }) {
   const [buttonStart, setButtonStart] = useState(true);
   const [apiDrink, setApiDrink] = useState([]);
   const [recommendedMeals, setRecommendedMels] = useState();
+
+  const startSet = () => {
+    const item = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (!item || !item.drinks) return setButtonStart(true);
+    if (item.drinks[value[0].idDrink]) return setButtonStart(false);
+  };
+
   useEffect(() => {
     const getApiResult = async () => {
       const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${value[0].idDrink}`);
@@ -15,6 +23,7 @@ export default function DrinksRecipes({ value }) {
       setApiDrink(result.drinks[0]);
     };
     getApiResult();
+    startSet();
   }, []);
 
   const handleStartRecipe = () => {
@@ -114,7 +123,22 @@ export default function DrinksRecipes({ value }) {
             </div>
           </div>
 
-          {buttonStart && (
+          {buttonStart ? (
+            <Link to={ `${value[0].idDrink}/in-progress` }>
+              <button
+                data-testid="start-recipe-btn"
+                className="btn buttonStart text-light"
+                type="button"
+                onClick={ handleStartRecipe }
+                style={ { backgroundColor: '#421d1d' } }
+              >
+                Start Recipe
+
+              </button>
+
+            </Link>
+
+          ) : (
             <button
               data-testid="start-recipe-btn"
               className="btn buttonStart text-light"
@@ -122,7 +146,7 @@ export default function DrinksRecipes({ value }) {
               onClick={ handleStartRecipe }
               style={ { backgroundColor: '#421d1d' } }
             >
-              Start Recipe
+              Continue Recipe
 
             </button>
           )}
