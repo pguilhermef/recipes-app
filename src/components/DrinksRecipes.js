@@ -15,7 +15,7 @@ export default function DrinksRecipes({ value }) {
       setApiDrink(result.drinks[0]);
     };
     getApiResult();
-  }, []);
+  }, [value]);
 
   const handleStartRecipe = () => {
     setButtonStart(false);

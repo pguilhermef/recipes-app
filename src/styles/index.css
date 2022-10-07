@@ -39,3 +39,16 @@
   flex: none;
   width: 76%;
 }
+
+.footer1{
+  bottom: 0%;
+  position: fixed;
+}
+.footer2{
+  bottom: 0%;
+  position: fixed;
+}
+
+.recipe-image {
+  width: 100px;
+}

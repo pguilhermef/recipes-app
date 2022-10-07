@@ -4,7 +4,7 @@ import '../styles/index.css';
 
 export default function MealsRecipes({ value }) {
   const maxRecommended = 6;
-  const [buttonStart, setButtonStart] = useState(true);
+  const [recipeStart, setRecipeStart] = useState(true);
   const [mealsApi, setMealsApi] = useState();
   const [recommendedDrinks, setRecommendedDrinks] = useState();
 
@@ -15,7 +15,7 @@ export default function MealsRecipes({ value }) {
       setMealsApi(result.meals[0]);
     };
     getApiResult();
-  }, []);
+  }, [value]);
 
   useEffect(() => {
     const fetchRecommendedDrinks = async () => {
@@ -123,7 +123,7 @@ export default function MealsRecipes({ value }) {
               </div>
             </div>
 
-            {buttonStart && (
+            {recipeStart && (
               <button
                 data-testid="start-recipe-btn"
                 className="btn buttonStart text-light"
