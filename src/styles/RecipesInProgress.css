@@ -17,9 +17,9 @@
 }
 
 .Description-instruction {
+  font-size: small;
   margin-bottom: 0%;
   text-align: justify;
-  font-size: small;
 }
 
 .finish-recipe-button {
