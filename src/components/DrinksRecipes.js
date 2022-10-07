@@ -24,7 +24,7 @@ export default function DrinksRecipes({ value }) {
     };
     getApiResult();
     startSet();
-  }, [value]);
+  }, []);
 
   const handleStartRecipe = () => {
     setButtonStart(false);

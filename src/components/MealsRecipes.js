@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import numbers from '../helpers/helpers';
 import '../styles/index.css';
 
 export default function MealsRecipes({ value }) {
   const maxRecommended = 6;
-  const [recipeStart, setRecipeStart] = useState(true);
+  const [buttonStart, setButtonStart] = useState(true);
   const [mealsApi, setMealsApi] = useState();
   const [recommendedDrinks, setRecommendedDrinks] = useState();
 
@@ -141,20 +140,17 @@ export default function MealsRecipes({ value }) {
             </div>
           </div>
 
-            {recipeStart && (
-              <button
-                data-testid="start-recipe-btn"
-                className="btn buttonStart text-light"
-                type="button"
-                onClick={ handleStartRecipe }
-                style={ { backgroundColor: '#421d1d' } }
-              >
-                Start Recipe
+          {buttonStart ? (
+            <button
+              data-testid="start-recipe-btn"
+              className="btn buttonStart text-light"
+              type="button"
+              onClick={ handleStartRecipe }
+              style={ { backgroundColor: '#421d1d' } }
+            >
+              Start Recipe
 
-              </button>
-
-            </Link>
-
+            </button>
           ) : (
             <button
               data-testid="start-recipe-btn"
