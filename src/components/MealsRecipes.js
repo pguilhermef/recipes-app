@@ -1,11 +1,17 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import clipboardCopy from 'clipboard-copy';
 import numbers from '../helpers/helpers';
+import Unfavorite from '../images/whiteHeartIcon.svg';
+import Favorite from '../images/blackHeartIcon.svg';
+import shareIcon from '../images/shareIcon.svg';
 import '../styles/index.css';
 
 export default function MealsRecipes({ value }) {
   const maxRecommended = 6;
+  const [isFavorite, setIsFavorite] = useState(false);
   const [buttonStart, setButtonStart] = useState(true);
+  const [linkCopiedAlert, setLinkCopiedAlert] = useState(false);
   const [mealsApi, setMealsApi] = useState();
   const [recommendedDrinks, setRecommendedDrinks] = useState();
 
@@ -38,7 +44,20 @@ export default function MealsRecipes({ value }) {
     setButtonStart(false);
   };
 
-  console.log(value[0]);
+  const handleShare = () => {
+    const foodURL = window.location.href;
+    clipboardCopy(foodURL);
+    global.alert('Link copied!');
+    setLinkCopiedAlert(true);
+  };
+
+  const handleFavoriteFood = () => {
+    if (isFavorite === false) {
+      setIsFavorite(true);
+    } if (isFavorite === true) {
+      setIsFavorite(false);
+    }
+  };
 
   return (
     value && (
@@ -158,6 +177,28 @@ export default function MealsRecipes({ value }) {
 
             </button>
           )}
+
+          <button
+            type="button"
+            data-testid="share-btn"
+            onClick={ handleShare }
+          >
+            <img
+              src={ shareIcon }
+              alt="shareButton"
+            />
+          </button>
+
+          {linkCopiedAlert && (<span>Link copied!</span>)}
+
+          <button
+            type="button"
+            onClick={ handleFavoriteFood }
+          >
+            { isFavorite
+              ? <img src={ Favorite } data-testid="favorite-btn" alt="icone" />
+              : <img src={ Unfavorite } data-testid="favorite-btn" alt="icone" />}
+          </button>
 
         </main>)))
   );

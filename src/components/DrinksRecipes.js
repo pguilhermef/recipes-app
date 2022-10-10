@@ -1,11 +1,17 @@
 import { useEffect, useState } from 'react';
 import PropTypes, { string } from 'prop-types';
+import clipboardCopy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
+import Unfavorite from '../images/whiteHeartIcon.svg';
+import Favorite from '../images/blackHeartIcon.svg';
 import numbers from '../helpers/helpers';
+import shareIcon from '../images/shareIcon.svg';
 import '../styles/index.css';
 
 export default function DrinksRecipes({ value }) {
   const maxRecommended = 6;
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [linkCopiedAlert, setLinkCopiedAlert] = useState(false);
   const [buttonStart, setButtonStart] = useState(true);
   const [apiDrink, setApiDrink] = useState([]);
   const [recommendedMeals, setRecommendedMels] = useState();
@@ -39,15 +45,30 @@ export default function DrinksRecipes({ value }) {
     fetchRecommendedMeals();
   }, []);
 
-  // console.log(value.map((item, i) => `${[i + 1]}`));
-  if (value) {
-    return (
-      value && (
-        <main className="drinks-page adjust-menu-infos">
+  const handleShare = () => {
+    const foodURL = window.location.href;
+    clipboardCopy(foodURL);
+    global.alert('Link copied!');
+    setLinkCopiedAlert(true);
+  };
+
+  const handleFavoriteFood = () => {
+    if (isFavorite === false) {
+      setIsFavorite(true);
+    } if (isFavorite === true) {
+      setIsFavorite(false);
+    }
+  };
+
+  // if (value) {
+  return (
+    value && (
+      value.map((item) => (
+        <main key={ item.strDrink } className="drinks-page adjust-menu-infos">
           {/* Imagem */}
           <img
-            alt={ value[0].strDrink }
-            src={ value[0].strDrinkThumb }
+            alt={ item.strDrink }
+            src={ item.strDrinkThumb }
             data-testid="recipe-photo"
             className="img-fluid img-thumbnail mt-4 recipe-detail-thumbnail"
           />
@@ -59,11 +80,11 @@ export default function DrinksRecipes({ value }) {
               data-testid="recipe-category"
             >
               <span>
-                {value[0].strCategory}
+                {item.strCategory}
                 {' '}
                 -
                 {' '}
-                {value[0].strAlcoholic}
+                {item.strAlcoholic}
               </span>
             </div>
             <div className="mt-2 container">
@@ -87,7 +108,7 @@ export default function DrinksRecipes({ value }) {
           {/* Modo de Preparo */}
           <div className="container text-light glassmorphism">
             <h3 className="mt-2">Modo de preparo:</h3>
-            <p data-testid="instructions">{ value[0].strInstructions }</p>
+            <p data-testid="instructions">{ item.strInstructions }</p>
           </div>
           {/* Recomendado */}
           <div className="text-light">
@@ -151,10 +172,31 @@ export default function DrinksRecipes({ value }) {
             </button>
           )}
 
-        </main>)
-    );
-  }
+          <button
+            type="button"
+            data-testid="share-btn"
+            onClick={ handleShare }
+          >
+            <img
+              src={ shareIcon }
+              alt="shareButton"
+            />
+          </button>
+
+          {linkCopiedAlert && (<span>Link copied!</span>)}
+
+          <button
+            type="button"
+            onClick={ handleFavoriteFood }
+          >
+            { isFavorite
+              ? <img src={ Favorite } data-testid="favorite-btn" alt="icone" />
+              : <img src={ Unfavorite } data-testid="favorite-btn" alt="icone" />}
+          </button>
+
+        </main>))));
 }
+// }
 
 DrinksRecipes.propTypes = {
   value: PropTypes.arrayOf(
