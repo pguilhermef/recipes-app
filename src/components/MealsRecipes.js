@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import numbers from '../helpers/helpers';
 import '../styles/index.css';
 
@@ -34,16 +35,7 @@ export default function MealsRecipes({ value }) {
   }, []);
 
   const handleStartRecipe = () => {
-    const item = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
-    if (!item.meals) {
-      item.meals = {};
-    }
-    if (!item.meals[value[0].idMeal]) {
-      item.meals[value[0].idMeal] = [];
-    }
-    item.meals[value[0].idMeal] = [...item.meals[value[0].idMeal], value[0].strMeal];
-
-    localStorage.setItem('inProgressRecipes', JSON.stringify(item));
+    setButtonStart(false);
   };
 
   console.log(value[0]);
@@ -141,16 +133,19 @@ export default function MealsRecipes({ value }) {
           </div>
 
           {buttonStart ? (
-            <button
-              data-testid="start-recipe-btn"
-              className="btn buttonStart text-light"
-              type="button"
-              onClick={ handleStartRecipe }
-              style={ { backgroundColor: '#421d1d' } }
-            >
-              Start Recipe
+            <Link to={ `${value[0].idMeal}/in-progress` }>
+              <button
+                data-testid="start-recipe-btn"
+                className="btn buttonStart text-light"
+                type="button"
+                onClick={ handleStartRecipe }
+                style={ { backgroundColor: '#421d1d' } }
+              >
+                Start Recipe
 
-            </button>
+              </button>
+
+            </Link>
           ) : (
             <button
               data-testid="start-recipe-btn"
