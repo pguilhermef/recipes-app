@@ -58,7 +58,7 @@ export default function DrinksRecipes({ value }) {
               </span>
             </div>
             <div className="mt-2 container">
-              <h3>Ingredientes:</h3>
+              <h3>Ingredients:</h3>
               <ul className="list-group">
                 {apiDrink && numbers.map((i) => (
                   apiDrink[`strIngredient${[i]}`])
@@ -77,7 +77,7 @@ export default function DrinksRecipes({ value }) {
           </div>
           {/* Modo de Preparo */}
           <div className="container text-light glassmorphism">
-            <h3 className="mt-2">Modo de preparo:</h3>
+            <h3 className="mt-2">Instructions:</h3>
             <p data-testid="instructions">{ value[0].strInstructions }</p>
           </div>
           {/* Recomendado */}
