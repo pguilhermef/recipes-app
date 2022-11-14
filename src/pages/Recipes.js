@@ -7,9 +7,12 @@ function Recipes() {
   const history = useHistory();
   const { location: { pathname } } = history;
 
-  if (pathname === '/meals') return <Meals />;
-
-  if (pathname === '/drinks') return <Drinks />;
+  switch (pathname) {
+  case '/drinks':
+    return <Drinks />;
+  default:
+    return <Meals />;
+  }
 }
 
 export default Recipes;
