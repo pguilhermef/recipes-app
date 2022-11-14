@@ -1,20 +1,20 @@
 .login-page {
   background: url('../images/mealsWallpaper.png');
-  background-size: 100%;
   background-repeat: no-repeat;
+  background-size: 100%;
   height: 100vh;
 }
 
 .drinks-page {
   background-image: url('../images/drinksWallpaper.png');
-  background-size: 99%;
   background-repeat: repeat-y;
+  background-size: 99%;
 }
 
 .meals-page {
   background-image: url('../images/meals.jpg');
-  background-size: 99%;
   background-repeat: repeat-y;
+  background-size: 99%;
 }
 
 .carrousel {
@@ -31,11 +31,25 @@
 
 .buttonStart {
   bottom: 0;
-  right: 35%;
   position: fixed;
+  right: 35%;
 }
 
 .imgRecomendation {
   flex: none;
   width: 76%;
+}
+
+.footer1 {
+  bottom: 0%;
+  position: fixed;
+}
+
+.footer2 {
+  bottom: 0%;
+  position: fixed;
+}
+
+.recipe-image {
+  width: 100px;
 }

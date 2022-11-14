@@ -12,6 +12,8 @@ import AppReceitasContext from './AppReceitasContext';
 
 function AppReceitasProvider({ children }) {
   const [loginEmail, setLoginEmail] = useState('');
+  const [pathname, setPathname] = useState();
+  const [filteredList, setfilteredList] = useState();
   const [meals, setMeals] = useState([]);
   const [drinks, setDrinks] = useState([]);
   const [mealsToFilter, setMealsToFilter] = useState([]);
@@ -20,12 +22,55 @@ function AppReceitasProvider({ children }) {
   const [drinksFilterButtons, setDrinksFilterButtons] = useState([]);
   const [toFilterMeals, setToFilterMeals] = useState('');
   const [toFilterDrinks, setToFilterDrinks] = useState('');
+  const [foodById, setFoodById] = useState();
+  const [arrayOfIngredients, setArrayOfIngredients] = useState([]);
 
   const addEmail = useCallback((value) => {
     setLoginEmail(value);
   }, []);
 
-  // Quando rendenizado, é aqui que devem ser feitas todas as requisições à API's!
+  const fetchIngredientsAPIs = useCallback(async (ingredient, typeOfFood) => {
+    const url = `https://www.the${typeOfFood}db.com/api/json/v1/1/filter.php?i=${ingredient}`;
+    const response = await fetch(url);
+    const result = await response.json();
+    if (typeOfFood === 'meal') {
+      setMealsToFilter(result.meals);
+      setfilteredList(result);
+    } else if (typeOfFood === 'cocktail') {
+      setDrinksToFilter(result.drinks);
+      setfilteredList(result);
+    }
+  }, []);
+
+  const fetchNameAPIs = useCallback(async (name, typeOfFood) => {
+    const url = `https://www.the${typeOfFood}db.com/api/json/v1/1/search.php?s=${name}`;
+    const response = await fetch(url);
+    const result = await response.json();
+    if (typeOfFood === 'meal') {
+      setMealsToFilter(result.meals);
+      setfilteredList(result);
+    } else if (typeOfFood === 'cocktail') {
+      setDrinksToFilter(result.drinks);
+      setfilteredList(result);
+    }
+  }, []);
+
+  const fetchFirstLeatterAPIs = useCallback(async (firstLeatter, typeOfFood) => {
+    const url = `https://www.the${typeOfFood}db.com/api/json/v1/1/search.php?f=${firstLeatter}`;
+    const response = await fetch(url);
+    const result = await response.json();
+    if (typeOfFood === 'meal') {
+      setMealsToFilter(result.meals);
+      setfilteredList(result);
+    } else if (typeOfFood === 'cocktail') {
+      setDrinksToFilter(result.drinks);
+      setfilteredList(result);
+    }
+  }, []);
+
+  const passPathName = useCallback((pathnameParam) => {
+    setPathname(pathnameParam);
+  }, []);
   useEffect(() => {
     const requestApi = async () => {
       setMeals(await fetchApiMeals());
@@ -34,6 +79,28 @@ function AppReceitasProvider({ children }) {
       setDrinksFilterButtons(await fetchApiDrinksFilters());
     };
     requestApi();
+  }, []);
+
+  const requestAPIbyID = useCallback(async (id, typeOfFood) => {
+    const url = `https://www.the${typeOfFood}db.com/api/json/v1/1/lookup.php?i=${id}`;
+    const response = await fetch(url);
+    const result = await response.json();
+    let ingredients = [];
+    if (typeOfFood === 'meal') {
+      setFoodById(result.meals[0]);
+      ingredients = Object.entries(result.meals[0])
+        .filter((e) => e[0].includes('strIngredient'))
+        .map((e) => e[1])
+        .filter((e) => e !== null && e.length > 0);
+    } else if (typeOfFood === 'cocktail') {
+      setFoodById(result.drinks[0]);
+      ingredients = Object.entries(result.drinks[0])
+        .filter((e) => e[0].includes('strIngredient'))
+        .map((e) => e[1])
+        .filter((e) => e !== null && e.length > 0);
+    }
+
+    setArrayOfIngredients(ingredients);
   }, []);
 
   useEffect(() => {
@@ -58,6 +125,12 @@ function AppReceitasProvider({ children }) {
   }, [toFilterDrinks, drinks]);
 
   const contextValue = useMemo(() => ({
+    pathname,
+    filteredList,
+    fetchIngredientsAPIs,
+    fetchNameAPIs,
+    fetchFirstLeatterAPIs,
+    passPathName,
     addEmail,
     loginEmail,
     meals,
@@ -70,7 +143,16 @@ function AppReceitasProvider({ children }) {
     setToFilterDrinks,
     toFilterMeals,
     toFilterDrinks,
+    requestAPIbyID,
+    foodById,
+    arrayOfIngredients,
   }), [
+    pathname,
+    filteredList,
+    fetchIngredientsAPIs,
+    fetchNameAPIs,
+    fetchFirstLeatterAPIs,
+    passPathName,
     addEmail,
     loginEmail,
     meals,
@@ -83,6 +165,9 @@ function AppReceitasProvider({ children }) {
     setToFilterDrinks,
     toFilterMeals,
     toFilterDrinks,
+    requestAPIbyID,
+    foodById,
+    arrayOfIngredients,
   ]);
 
   return (

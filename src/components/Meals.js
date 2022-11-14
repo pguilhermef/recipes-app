@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import AppReceitasContext from '../context/AppReceitasContext';
@@ -7,19 +7,37 @@ import '../styles/index.css';
 import '../styles/Recipes.css';
 
 function Meals() {
+  const history = useHistory();
   const {
+    passPathName,
+    filteredList,
     mealsToFilter,
     mealsFilterButtons,
     setToFilterMeals,
     toFilterMeals,
   } = useContext(AppReceitasContext);
+  useEffect(() => {
+    passPathName(history.location.pathname);
+  }, [passPathName, history]);
+
+  useEffect(() => {
+    const specificFood = () => {
+      if (filteredList !== undefined
+        && filteredList.meals !== null
+        && filteredList.meals.length === Number('1')) {
+        const { meals } = filteredList;
+        history.push(`/meals/${meals[0].idMeal}`);
+      }
+    };
+
+    specificFood();
+  }, [filteredList, history]);
 
   const handleFilterCategory = ({ target }) => {
     if (target.value === toFilterMeals) return setToFilterMeals('');
 
     setToFilterMeals(target.value);
   };
-
   return (
     <>
       <Header />

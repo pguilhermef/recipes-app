@@ -2,11 +2,18 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import drinkIcon from '../images/drinkIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
+import '../styles/index.css';
 
 function Footer() {
   return (
-    <nav className="navbar fixed-bottom" style={ { backgroundColor: '#421d1d' } }>
-      <div className="container-fluid justify-content-evenly">
+    <nav
+      data-testid="footer"
+      className="navbar fixed-bottom"
+      style={ { backgroundColor: '#421d1d' } }
+    >
+      <div
+        className="container-fluid justify-content-evenly"
+      >
         <Link to="/drinks" className="nav-link active">
           <img
             src={ drinkIcon }

@@ -1,0 +1,35 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.img-recipes {
+  max-height: 100px;
+  width: 360px;
+}
+
+.title-recipes {
+  font-weight: 700;
+  margin: 5px solid red;
+  padding: 20px;
+  text-align: center;
+}
+
+.Description-instruction {
+  font-size: small;
+  margin-bottom: 0%;
+  text-align: justify;
+}
+
+.finish-recipe-button {
+  border: none;
+  bottom: 0;
+  color: black;
+  font-weight: 700;
+  left: 0%;
+  padding-block: 5px;
+  position: fixed;
+  right: 0%;
+  width: 100%;
+}

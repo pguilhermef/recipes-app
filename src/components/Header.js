@@ -46,9 +46,7 @@ function Header() {
         </div>
         <form className="d-flex" role="search">
           {showSearch && (
-            <div
-              data-testid="search-input"
-            >
+            <div>
               <SearchBar />
             </div>
           )}

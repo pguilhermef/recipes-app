@@ -32,4 +32,28 @@ describe('Testa o componente Header', () => {
     const componentSerachBar = screen.getByTestId('search-input');
     expect(componentSerachBar).toBeInTheDocument();
   });
+  it('verifica elementos da search bar ?', () => {
+    const { history } = renderWithRouter(<App />);
+    history.push('/meals');
+
+    const buttonSearch = screen.getByTestId('search-top-btn');
+    expect(buttonSearch).toBeInTheDocument();
+    userEvent.click(buttonSearch);
+
+    const inputElementByIngredient = screen.getByTestId('ingredient-search-radio');
+    const inputElementIngredientName = screen.getByText(/Ingredient/i);
+    const inputElementBySearch = screen.getByTestId('name-search-radio');
+    const inputELementSearchName = screen.getByText(/nome/i);
+    const inputElementBySearchFirstLetter = screen.getByTestId('first-letter-search-radio');
+    const inputElementBySearchNameFirstLetter = screen.getByTestId(/Primeira Letra/i);
+    const buttonExecSearchBtn = screen.getByTestId('exec-search-btn');
+
+    expect(inputElementByIngredient).toBeInTheDocument();
+    expect(inputElementIngredientName).toBeInTheDocument();
+    expect(inputElementBySearch).toBeInTheDocument();
+    expect(inputELementSearchName).toBeInTheDocument();
+    expect(inputElementBySearchFirstLetter).toBeInTheDocument();
+    expect(inputElementBySearchNameFirstLetter).toBeInTheDocument();
+    expect(buttonExecSearchBtn).toBeInTheDocument();
+  });
 });

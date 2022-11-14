@@ -1,17 +1,35 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import AppReceitasContext from '../context/AppReceitasContext';
 import '../styles/Recipes.css';
 
 function Drinks() {
+  const history = useHistory();
   const {
+    passPathName,
+    filteredList,
     drinksToFilter,
     drinksFilterButtons,
     setToFilterDrinks,
     toFilterDrinks,
   } = useContext(AppReceitasContext);
+  useEffect(() => {
+    passPathName(history.location.pathname);
+  }, [passPathName, history.location.pathname]);
+
+  useEffect(() => {
+    const specificFood = () => {
+      if (filteredList !== undefined
+        && filteredList.drinks !== null
+        && filteredList.drinks.length === Number('1')) {
+        const { drinks } = filteredList;
+        history.push(`/drinks/${drinks[0].idDrink}`);
+      }
+    };
+    specificFood();
+  }, [filteredList, history]);
 
   const handleFilterCategory = ({ target }) => {
     if (target.value === toFilterDrinks) return setToFilterDrinks('');
